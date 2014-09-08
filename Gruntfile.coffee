@@ -23,24 +23,24 @@ module.exports = (grunt) ->
         expand: true
         cwd: 'src/stylus/'
         src: [
-          '*.styl'
-          '!import/*.styl'
+          '**/*.styl'
+          '!**/import/*.styl'
         ]
-        dest: 'dest/css/'
+        dest: 'dest/'
         ext: '.css'
 
-      build:
-        options:
-          compress: true
+      # build:
+      #   options:
+      #     compress: true
 
-        expand: true
-        cwd: 'src/stylus/'
-        src: [
-          '*.styl'
-          '!import/*.styl'
-        ]
-        dest: 'dest/css/'
-        ext: '.css'
+      #   expand: true
+      #   cwd: 'src/stylus/'
+      #   src: [
+      #     '**/*.styl'
+      #     '!**/import/*.styl'
+      #   ]
+      #   dest: 'dest/css/'
+      #   ext: '.css'
 
     coffee:
       options:
@@ -50,7 +50,7 @@ module.exports = (grunt) ->
         expand: true
         cwd: 'src/coffee/'
         src: [
-          '*.coffee'
+          '**/*.coffee'
         ]
         dest: 'src/js/'
         ext: '.js'
@@ -60,16 +60,25 @@ module.exports = (grunt) ->
         configFile: 'coffeelint.json'
       lint:
         src: [
-          'src/coffee/*.coffee'
+          'src/coffee/**/*.coffee'
         ]
 
+    ###
+    concat のみプロパティ追加
+    ###
     concat:
-      dest:
+      dest1:
         src: [
           'src/js/polyfill.js'
-          'src/js/script.js'
+          'src/js/1/script.js'
         ]
-        dest: 'dest/js/all.js'
+        dest: 'dest/1/all.js'
+      dest2:
+        src: [
+          'src/js/polyfill.js'
+          'src/js/2/script.js'
+        ]
+        dest: 'dest/2/all.js'
 
     cssmin:
       min:
@@ -106,13 +115,13 @@ module.exports = (grunt) ->
         spawn: false
       live:
         files: [
-          'src/coffee/*.coffee'
-          'src/stylus/*.styl'
+          'src/coffee/**/*.coffee'
+          'src/stylus/**/*.styl'
         ]
         tasks: [
-          'newer:coffeelint:lint'
+          'newer:coffeelint'
           'newer:coffee:compile'
-          'newer:concat:dest'
+          'newer:concat'
           'newer:stylus:compile'
           # 'copy:demo'
         ]
@@ -122,7 +131,7 @@ module.exports = (grunt) ->
         port: 9001
       live:
         options:
-          base: './dest/'
+          base: 'dest/'
 
     bumpup:
       files: [
@@ -150,7 +159,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'b', (type) ->
     # type >> major minor patch
     grunt.task.run 'bumpup:' + type
-    grunt.task.run 'copy'
+    # grunt.task.run 'copy'
     grunt.task.run 'coffeelint'
     grunt.task.run 'coffee'
     grunt.task.run 'uglify'
