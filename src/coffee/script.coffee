@@ -210,8 +210,10 @@
   App.updateScene = ->
     return  unless _engine
 
-    _sceneWidth = document.documentElement.clientWidth
-    _sceneHeight = document.documentElement.clientHeight
+    # _sceneWidth = document.documentElement.clientWidth
+    # _sceneHeight = document.documentElement.clientHeight
+    _sceneWidth = window.innerWidth
+    _sceneHeight = window.innerHeight
 
     boundsMax = _engine.world.bounds.max
     renderOptions = _engine.render.options
