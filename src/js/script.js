@@ -1,5 +1,5 @@
 (function() {
-  var App, Bodies, Body, Common, Composite, Composites, Constraint, Engine, Gui, MouseConstraint, World, uA, _engine, _sceneHeight, _sceneName, _sceneWidth;
+  var App, Bodies, Body, Common, Composite, Composites, Constraint, Engine, Gui, MouseConstraint, World, _engine, _sceneHeight, _sceneName, _sceneWidth;
   Engine = Matter.Engine;
   Gui = Matter.Gui;
   World = Matter.World;
@@ -176,8 +176,5 @@
       isStatic: true
     }));
   };
-  uA = navigator.userAgent.toLowerCase();
-  if (uA.indexOf('iphone') > -1 || uA.indexOf('ipod') > -1 || uA.indexOf('android') > -1) {
-    window.addEventListener('load', App.init);
-  }
+  window.addEventListener('load', App.init);
 })();

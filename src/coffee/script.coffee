@@ -333,10 +333,12 @@
   # App.reset ---------------------------------------------
 
 
-  uA = navigator.userAgent.toLowerCase()
+  # uA = navigator.userAgent.toLowerCase()
 
-  if uA.indexOf('iphone') > -1 or uA.indexOf('ipod') > -1 or uA.indexOf('android') > -1
-    window.addEventListener 'load', App.init
+  # if uA.indexOf('iphone') > -1 or uA.indexOf('ipod') > -1 or uA.indexOf('android') > -1
+  #   window.addEventListener 'load', App.init
+
+  window.addEventListener 'load', App.init
 
   return
 )()
