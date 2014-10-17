@@ -137,7 +137,7 @@
       switch Math.round(Common.random(0, 2))
         when 0
           return Bodies.rectangle(x + offset, y + offset, rectangleSize, rectangleSize,
-            friction: 1
+            friction: 0
             frictionAir: 0
             restitution: 0.05
             # angularVelocity: 1
@@ -163,7 +163,7 @@
           #     fillStyle: tsumikiColor[Math.floor Math.random() * 10]
           # )
           return Bodies.polygon(x + offset, y + offset, 3, Common.random(16, 32),
-            friction: 2
+            friction: 0
             frictionAir: 0
             # motion: 1
             restitution: 0.05
@@ -188,7 +188,7 @@
           #     fillStyle: tsumikiColor[Math.floor Math.random() * 10]
           # )
           return Bodies.circle(x + offset, y + offset, Common.random(20, 30),
-            friction: 1
+            friction: 0
             frictionAir: 0
             restitution: 0.05
             # isStatic: true

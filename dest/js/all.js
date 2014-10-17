@@ -142,7 +142,7 @@ if (!Array.prototype.filter) {
       switch (Math.round(Common.random(0, 2))) {
         case 0:
           return Bodies.rectangle(x + offset, y + offset, rectangleSize, rectangleSize, {
-            friction: 1,
+            friction: 0,
             frictionAir: 0,
             restitution: 0.05,
             density: 0.1,
@@ -153,7 +153,7 @@ if (!Array.prototype.filter) {
           });
         case 1:
           return Bodies.polygon(x + offset, y + offset, 3, Common.random(16, 32), {
-            friction: 2,
+            friction: 0,
             frictionAir: 0,
             restitution: 0.05,
             render: {
@@ -163,7 +163,7 @@ if (!Array.prototype.filter) {
           });
         case 2:
           return Bodies.circle(x + offset, y + offset, Common.random(20, 30), {
-            friction: 1,
+            friction: 0,
             frictionAir: 0,
             restitution: 0.05,
             render: {
