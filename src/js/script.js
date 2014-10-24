@@ -84,7 +84,7 @@
     i = 0;
     while (i < bodies.length) {
       body = bodies[i];
-      if (!body.isStatic && body.position.y >= 500) {
+      if (!body.isStatic) {
         forceMagnitude = 0.05 * body.mass;
         Body.applyForce(body, {
           x: 0,
@@ -105,7 +105,7 @@
   Events.on(engine, 'tick', function(event) {
     engine.timing.timeScale += (timeScaleTarget - engine.timing.timeScale) * 0.05;
     counter += 1;
-    if (counter >= 60 * 3) {
+    if (counter >= 60 * 2.5) {
       if (timeScaleTarget < 1) {
         timeScaleTarget = 1;
       } else {

@@ -92,7 +92,7 @@ explosion = (engine) ->
 
   while i < bodies.length
     body = bodies[i]
-    if not body.isStatic and body.position.y >= 500
+    if not body.isStatic# and body.position.y >= 500
       forceMagnitude = 0.05 * body.mass
       Body.applyForce body,
         x: 0
@@ -114,8 +114,8 @@ Events.on engine, 'tick', (event) ->
   engine.timing.timeScale += (timeScaleTarget - engine.timing.timeScale) * 0.05
   counter += 1
 
-  # every 2 sec
-  if counter >= 60 * 3
+  # ループ感覚
+  if counter >= 60 * 2.5
 
     # flip the timescale
     if timeScaleTarget < 1

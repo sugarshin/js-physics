@@ -153,7 +153,7 @@ if (!Array.prototype.filter) {
     i = 0;
     while (i < bodies.length) {
       body = bodies[i];
-      if (!body.isStatic && body.position.y >= 500) {
+      if (!body.isStatic) {
         forceMagnitude = 0.05 * body.mass;
         Body.applyForce(body, {
           x: 0,
@@ -174,7 +174,7 @@ if (!Array.prototype.filter) {
   Events.on(engine, 'tick', function(event) {
     engine.timing.timeScale += (timeScaleTarget - engine.timing.timeScale) * 0.05;
     counter += 1;
-    if (counter >= 60 * 3) {
+    if (counter >= 60 * 2.5) {
       if (timeScaleTarget < 1) {
         timeScaleTarget = 1;
       } else {
@@ -185,7 +185,7 @@ if (!Array.prototype.filter) {
     }
   });
 
-  tsumikiColor = ['#23AAA4', '#5AB5B0', '#78BEB2', '#686F89', '#DC5D54', '#DD6664', '#D94142', '#E78E21', '#E9A21F', '#EDB51C'];
+  tsumikiColor = ['#23c2bd', '#64CCC7', '#80D1C5', '#919BC2', '#ff4c4f', '#ff695e', '#f76d6d', '#ff9c19', '#ffb617', '#ffc30f'];
 
   rectangleSize = Common.random(24, 48);
 
