@@ -1,344 +1,218 @@
-(->
-
-  # Aliases
-  Engine = Matter.Engine
-  Gui = Matter.Gui
-  World = Matter.World
-  Bodies = Matter.Bodies
-  Body = Matter.Body
-  Composite = Matter.Composite
-  Composites = Matter.Composites
-  Common = Matter.Common
-  Constraint = Matter.Constraint
-  MouseConstraint = Matter.MouseConstraint
-
-  App = {}
-
-  _engine = undefined
-
-  _sceneName = 'tsumiki'
-  _sceneWidth = undefined
-  _sceneHeight = undefined
-
-
-
-  App.init = ->
-    container = document.getElementById 'container'
-    # demoStart = document.getElementById 'demo-start'
-
-    # demoStart.style.display = 'none'
-
-    _engine = Engine.create(container,
-      render:
-        options:
-          background: '#fff'
-          wireframes: false
-          showSleeping: false
-    )
-
-    # App.fullscreen()
-
-    Engine.run(_engine)
-    App.updateScene()
-    # setTimeout(->
-    #   Engine.run _engine
-    #   App.updateScene()
-    #   return
-    # , 800)
-
-    return
-
-    # demoStart.addEventListener 'click', ->
-    #   demoStart.style.display = 'none'
-    #   _engine = Engine.create(container,
-    #     render:
-    #       options:
-    #         wireframes: true
-    #         showAngleIndicator: true
-    #         showDebug: true
-    #   )
-    #   # App.fullscreen()
-    #   setTimeout (->
-    #     Engine.run _engine
-    #     App.updateScene()
-    #     return
-    #   ), 800
-    #   return
-
-    window.addEventListener 'deviceorientation', App.updateGravity, true
-    window.addEventListener 'touchstart', App.fullscreen
-    window.addEventListener 'orientationchange', ->
-      App.updateGravity()
-      App.updateScene()
-      App.fullscreen()
-      return
-    , false
-
-    return
-  # App.init  ---------------------------------------------
-
-
-
-  App.tsumiki = ->
-    _world = _engine.world
-
-    App.reset()
-
-    mouse = _engine.input.mouse
-
-    cconstraint = Constraint.create(
-      label: 'Mouse Constraint'
-      pointA: mouse.position
-      pointB: { x: 0, y: 0 }
-      length: 0.01
-      stiffness: 0.1
-      angularStiffness: 1
-      render:
-        strokeStyle: 'transparent'
-        lineWidth: 1
-    )
-
-    World.add(_world, MouseConstraint.create(_engine, {
-      type: 'mouseConstraint'
-      mouse: mouse
-      dragBody: null
-      dragPoint: null
-      constraint: cconstraint
-    }))#,
-    #   constraint: cons
-    # )
-
-    tsumikiColor = [
-      '#23AAA4'
-      '#5AB5B0'
-      '#78BEB2'
-      '#686F89'
-      '#DC5D54'
-      '#DD6664'
-      '#D94142'
-      '#E78E21'
-      '#E9A21F'
-      '#EDB51C'
-    ]
-
-    # console.log(_sceneWidth)
-    # console.log(_sceneHeight)
-
-
-    stack = Composites.stack(_sceneWidth / 8, _sceneHeight / 6, 5, 5, 0, 0, (x, y, column, row) ->
-
-      rectangleSize = Common.random(24, 48)
-      offset = 8
-      # console.log(x)
-      # console.log(y)
-      # console.log(column)
-      # console.log(row)
-
-      switch Math.round(Common.random(0, 2))
-        when 0
-          return Bodies.rectangle(x + offset, y + offset, rectangleSize, rectangleSize,
-            friction: 0
-            frictionAir: 0
-            restitution: 0.05
-            # angularVelocity: 1
-            density: 0.1
-            # isStatic: true
-            render:
-              lineWidth: 1
-              # setBackground: '#000'
-              fillStyle: tsumikiColor[Math.floor Math.random() * 10]
-          )
-
-        when 1
-          # return Bodies.rectangle(x + offset, y + offset, rectangleSize, rectangleSize,
-          #   friction: 1
-          #   frictionAir: 0
-          #   restitution: 0.05
-          #   # angularVelocity: 1
-          #   density: 0.1
-          #   # isStatic: true
-          #   render:
-          #     lineWidth: 1
-          #     # setBackground: '#000'
-          #     fillStyle: tsumikiColor[Math.floor Math.random() * 10]
-          # )
-          return Bodies.polygon(x + offset, y + offset, 3, Common.random(16, 32),
-            friction: 0
-            frictionAir: 0
-            # motion: 1
-            restitution: 0.05
-            # isStatic: true
-            # angularVelocity: 1
-            render:
-              lineWidth: 1
-              fillStyle: tsumikiColor[Math.floor Math.random() * 10]
-          )
-
-        when 2
-          # return Bodies.rectangle(x + offset, y + offset, rectangleSize, rectangleSize,
-          #   friction: 1
-          #   frictionAir: 0
-          #   restitution: 0.05
-          #   # angularVelocity: 1
-          #   density: 0.1
-          #   # isStatic: true
-          #   render:
-          #     lineWidth: 1
-          #     # setBackground: '#000'
-          #     fillStyle: tsumikiColor[Math.floor Math.random() * 10]
-          # )
-          return Bodies.circle(x + offset, y + offset, Common.random(20, 30),
-            friction: 0
-            frictionAir: 0
-            restitution: 0.05
-            # isStatic: true
-            # angularVelocity: 1
-            render:
-              lineWidth: 1
-              fillStyle: tsumikiColor[Math.floor Math.random() * 10]
-            Common.random(20, 40)
-          )
-    )
-
-    World.add _world, stack
-
-    return
-  # App.tsumiki  --------------------------------------------
-
-
-
-  App.updateScene = ->
-    return  unless _engine
-
-    # _sceneWidth = document.documentElement.clientWidth
-    # _sceneHeight = document.documentElement.clientHeight
-    _sceneWidth = window.innerWidth
-    _sceneHeight = window.innerHeight
-
-    boundsMax = _engine.world.bounds.max
-    renderOptions = _engine.render.options
-    canvas = _engine.render.canvas
-
-    boundsMax.x = _sceneWidth
-    boundsMax.y = _sceneHeight
-
-    canvas.width = renderOptions.width = _sceneWidth
-    canvas.height = renderOptions.height = _sceneHeight
-
-    App[_sceneName]()
-
-    return
-  # App.updateScene ---------------------------------------
-
-
-
-  App.updateGravity = ->
-    return  unless _engine
-
-    orientation = window.orientation
-    gravity = _engine.world.gravity
-
-    if orientation is 0
-      gravity.x = Common.clamp(event.gamma, -90, 90) / 90
-      gravity.y = Common.clamp(event.beta, -90, 90) / 90
-    else if orientation is 180
-      gravity.x = Common.clamp(event.gamma, -90, 90) / 90
-      gravity.y = Common.clamp(-event.beta, -90, 90) / 90
-    else if orientation is 90
-      gravity.x = Common.clamp(event.beta, -90, 90) / 90
-      gravity.y = Common.clamp(-event.gamma, -90, 90) / 90
-    else if orientation is -90
-      gravity.x = Common.clamp(-event.beta, -90, 90) / 90
-      gravity.y = Common.clamp(event.gamma, -90, 90) / 90
-
-    return
-  # App.updateGravity -------------------------------------
-
-
-
-  App.fullscreen = ->
-    _fullscreenElement = _engine.render.canvas
-
-    if not document.fullscreenElement and not document.mozFullScreenElement and not document.webkitFullscreenElement
-      if _fullscreenElement.requestFullscreen
-        _fullscreenElement.requestFullscreen()
-      else if _fullscreenElement.mozRequestFullScreen
-        _fullscreenElement.mozRequestFullScreen()
-      else if _fullscreenElement.webkitRequestFullscreen
-        _fullscreenElement.webkitRequestFullscreen Element.ALLOW_KEYBOARD_INPUT
-
-    return
-  # App.fullscreen ----------------------------------------
-
-
-
-  App.reset = ->
-    _world = _engine.world
-    Common._seed = 2
-
-    World.clear _world
-    Engine.clear _engine
-
-    offset = 4
-
-    # bottom
-    World.addBody(
-      _world
-      Bodies.rectangle(
-        _sceneWidth * 0.5
-        _sceneHeight - offset / 2
-        _sceneWidth
-        offset
-        { isStatic: true }
-      )
-    )
-
-    # top
-    World.addBody(
-      _world
-      Bodies.rectangle(
-        _sceneWidth * 0.5
-        0 + offset / 2
-        _sceneWidth
-        offset
-        { isStatic: true }
-      )
-    )
-
-    # left
-    World.addBody(
-      _world
-      Bodies.rectangle(
-        0 + offset / 2
-        _sceneHeight * 0.5
-        offset
-        _sceneHeight + 0.5
-        { isStatic: true }
-      )
-    )
-
-    # right
-    World.addBody(
-      _world
-      Bodies.rectangle(
-        _sceneWidth - offset / 2
-        _sceneHeight * 0.5
-        offset
-        _sceneHeight + 0.5
-        { isStatic: true }
-      )
-    )
-
-    return
-  # App.reset ---------------------------------------------
-
-
-  # uA = navigator.userAgent.toLowerCase()
-
-  # if uA.indexOf('iphone') > -1 or uA.indexOf('ipod') > -1 or uA.indexOf('android') > -1
-  #   window.addEventListener 'load', App.init
-
-  window.addEventListener 'load', App.init
+Engine = Matter.Engine
+World = Matter.World
+Body = Matter.Body
+Bodies = Matter.Bodies
+Common = Matter.Common
+Constraint = Matter.Constraint
+Composites = Matter.Composites
+Composite = Matter.Composite
+Events = Matter.Events
+MouseConstraint = Matter.MouseConstraint
+
+engine = Engine.create(document.body,
+  render:
+    strokeStyle: 'transparent'
+    options:
+      # showAngleIndicator: true
+      # wireframes: true
+      background: '#fff'
+      wireframes: false
+      showSleeping: false
+)
+
+mouse = engine.input.mouse
+
+cconstraint = Constraint.create(
+  label: 'Mouse Constraint'
+  pointA: mouse.position
+  pointB:
+    x: 0
+    y: 0
+  length: 0.01
+  stiffness: 0.1
+  angularStiffness: 1
+  render:
+    strokeStyle: 'transparent'
+    lineWidth: 1
+)
+
+
+mouseConstraint = MouseConstraint.create(engine,
+  type: 'mouseConstraint'
+  mouse: mouse
+  dragBody: null
+  dragPoint: null
+  constraint: cconstraint
+)
+
+World.add engine.world, mouseConstraint
+
+updateScene = ->
+  return unless engine
+
+  # _sceneWidth = document.documentElement.clientWidth
+  # _sceneHeight = document.documentElement.clientHeight
+  _sceneWidth = window.innerWidth
+  _sceneHeight = window.innerHeight
+
+  boundsMax = engine.world.bounds.max
+  renderOptions = engine.render.options
+  canvas = engine.render.canvas
+
+  boundsMax.x = _sceneWidth
+  boundsMax.y = _sceneHeight
+
+  canvas.width = renderOptions.width = _sceneWidth
+  canvas.height = renderOptions.height = _sceneHeight
+
+  # App[_sceneName]()
 
   return
-)()
+# updateScene ---------------------------------------
+updateScene()
+# fullscreen = ->
+#   _fullscreenElement = engine.render.canvas
+
+#   if not document.fullscreenElement and not document.mozFullScreenElement and not document.webkitFullscreenElement
+#     if _fullscreenElement.requestFullscreen
+#       _fullscreenElement.requestFullscreen()
+#     else if _fullscreenElement.mozRequestFullScreen
+#       _fullscreenElement.mozRequestFullScreen()
+#     else if _fullscreenElement.webkitRequestFullscreen
+#       _fullscreenElement.webkitRequestFullscreen Element.ALLOW_KEYBOARD_INPUT
+
+#   return
+
+# fullscreen()
+
+
+explosion = (engine) ->
+  bodies = Composite.allBodies engine.world
+  i = 0
+
+  while i < bodies.length
+    body = bodies[i]
+    if not body.isStatic and body.position.y >= 500
+      forceMagnitude = 0.05 * body.mass
+      Body.applyForce body,
+        x: 0
+        y: 0
+      ,
+        x: (forceMagnitude + Math.random() * forceMagnitude) * Common.choose([
+          1
+          -1
+        ])
+        y: -forceMagnitude + Math.random() * -forceMagnitude
+
+    i++
+  return
+
+timeScaleTarget = 1
+counter = 20
+Events.on engine, 'tick', (event) ->
+
+  engine.timing.timeScale += (timeScaleTarget - engine.timing.timeScale) * 0.05
+  counter += 1
+
+  # every 2 sec
+  if counter >= 60 * 3
+
+    # flip the timescale
+    if timeScaleTarget < 1
+      timeScaleTarget = 1
+    else
+      timeScaleTarget = 0.05
+
+    # create some random forces
+    explosion engine
+
+    # reset counter
+    counter = 0
+  return
+
+
+tsumikiColor = [
+  '#23AAA4'
+  '#5AB5B0'
+  '#78BEB2'
+  '#686F89'
+  '#DC5D54'
+  '#DD6664'
+  '#D94142'
+  '#E78E21'
+  '#E9A21F'
+  '#EDB51C'
+]
+
+
+# bodyOptions =
+#   frictionAir: 0
+#   friction: 0.0001
+#   restitution: 0.8
+#   render:
+#     lineWidth: 1
+#     # setBackground: '#000'
+#     fillStyle: tsumikiColor[Math.floor Math.random() * 10]
+
+
+
+# World.add engine.world, Composites.stack(20, 100, 15, 3, 20, 40, (x, y, column, row) ->
+#   Bodies.circle x, y, Common.random(10, 20), bodyOptions
+# )
+
+# add some larger random bouncy objects
+rectangleSize = Common.random(24, 48)
+World.add engine.world, Composites.stack(50, 50, 30, 3, 0, 0, (x, y, column, row) ->
+  switch Math.round(Common.random(0, 2))
+    when 0
+      return Bodies.rectangle(x, y, rectangleSize, rectangleSize,
+        frictionAir: 0
+        friction: 0.0001
+        restitution: 0.8
+        render:
+          lineWidth: 1
+          fillStyle: tsumikiColor[Math.floor Math.random() * 10]
+      )
+    when 1
+      return Bodies.polygon(x, y, 3, Common.random(16, 32),
+        frictionAir: 0
+        friction: 0.0001
+        restitution: 0.8
+        render:
+          lineWidth: 1
+          fillStyle: tsumikiColor[Math.floor Math.random() * 10]
+      )
+    when 2
+      return  Bodies.circle(x, y, Common.random(20, 30),
+        frictionAir: 0
+        friction: 0.0001
+        restitution: 0.8
+        render:
+          lineWidth: 1
+          fillStyle: tsumikiColor[Math.floor Math.random() * 10]
+      , Common.random(20, 40)
+      )
+)
+
+# add some some walls to the world
+offset = 5
+sceneWidth = window.innerWidth
+sceneHeight = window.innerHeight
+
+World.add engine.world, [
+  Bodies.rectangle(sceneWidth / 2, -offset, sceneWidth + 2 * offset, 8,
+    isStatic: true
+  )
+  Bodies.rectangle(sceneWidth / 2, sceneHeight + offset, sceneWidth + 2 * offset, 8,
+    isStatic: true
+  )
+  Bodies.rectangle(sceneWidth + offset, sceneHeight / 2, 8, sceneHeight + 2 * offset,
+    isStatic: true
+  )
+  Bodies.rectangle(-offset, sceneHeight / 2, 8, sceneHeight + 2 * offset,
+    isStatic: true
+  )
+]
+
+# run the engine
+Engine.run engine
