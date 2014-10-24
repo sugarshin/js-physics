@@ -5460,7 +5460,6 @@ var Render = {};
                     } else {
                         c.fillStyle = body.render.fillStyle;
                     }
-
                     c.lineWidth = body.render.lineWidth;
                     c.strokeStyle = body.render.strokeStyle;
                     c.fill();
@@ -5889,6 +5888,10 @@ var Render = {};
         var canvas = document.createElement('canvas');
         canvas.width = width;
         canvas.height = height;
+
+        canvas.style.width = width / 4 + 'px';
+        canvas.style.height = height / 2 + 'px';
+
         canvas.oncontextmenu = function() { return false; };
         canvas.onselectstart = function() { return false; };
         return canvas;

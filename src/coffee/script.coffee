@@ -181,7 +181,8 @@ World.add engine.world, Composites.stack(50, 50, 30, 3, 0, 0, (x, y, column, row
         friction: 0.0001
         restitution: 0.8
         render:
-          lineWidth: 1
+          lineWidth: 0
+          strokeStyle: 'transparent'
           fillStyle: tsumikiColor[Math.floor Math.random() * 10]
       )
     when 1
@@ -190,7 +191,8 @@ World.add engine.world, Composites.stack(50, 50, 30, 3, 0, 0, (x, y, column, row
         friction: 0.0001
         restitution: 0.8
         render:
-          lineWidth: 1
+          lineWidth: 0
+          strokeStyle: 'transparent'
           fillStyle: tsumikiColor[Math.floor Math.random() * 10]
       )
     when 2
@@ -199,7 +201,8 @@ World.add engine.world, Composites.stack(50, 50, 30, 3, 0, 0, (x, y, column, row
         friction: 0.0001
         restitution: 0.8
         render:
-          lineWidth: 1
+          lineWidth: 0
+          strokeStyle: 'transparent'
           fillStyle: tsumikiColor[Math.floor Math.random() * 10]
       , Common.random(20, 40)
       )

@@ -128,7 +128,8 @@
           friction: 0.0001,
           restitution: 0.8,
           render: {
-            lineWidth: 1,
+            lineWidth: 0,
+            strokeStyle: 'transparent',
             fillStyle: tsumikiColor[Math.floor(Math.random() * 10)]
           }
         });
@@ -138,7 +139,8 @@
           friction: 0.0001,
           restitution: 0.8,
           render: {
-            lineWidth: 1,
+            lineWidth: 0,
+            strokeStyle: 'transparent',
             fillStyle: tsumikiColor[Math.floor(Math.random() * 10)]
           }
         });
@@ -148,7 +150,8 @@
           friction: 0.0001,
           restitution: 0.8,
           render: {
-            lineWidth: 1,
+            lineWidth: 0,
+            strokeStyle: 'transparent',
             fillStyle: tsumikiColor[Math.floor(Math.random() * 10)]
           }
         }, Common.random(20, 40));
