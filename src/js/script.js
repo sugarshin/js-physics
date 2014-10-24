@@ -116,7 +116,7 @@
     }
   });
 
-  tsumikiColor = ['#23AAA4', '#5AB5B0', '#78BEB2', '#686F89', '#DC5D54', '#DD6664', '#D94142', '#E78E21', '#E9A21F', '#EDB51C'];
+  tsumikiColor = ['#23c2bd', '#64CCC7', '#80D1C5', '#919BC2', '#ff4c4f', '#ff695e', '#f76d6d', '#ff9c19', '#ffb617', '#ffc30f'];
 
   rectangleSize = Common.random(24, 48);
 
