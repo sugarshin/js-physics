@@ -154,7 +154,7 @@ if (!Array.prototype.filter) {
     while (i < bodies.length) {
       body = bodies[i];
       if (!body.isStatic) {
-        forceMagnitude = 0.05 * body.mass;
+        forceMagnitude = 0.025 * body.mass;
         Body.applyForce(body, {
           x: 0,
           y: 0
@@ -196,9 +196,11 @@ if (!Array.prototype.filter) {
           frictionAir: 0,
           friction: 0.0001,
           restitution: 0.8,
+          density: 0.05,
           render: {
             lineWidth: 1,
-            fillStyle: tsumikiColor[Math.floor(Math.random() * 10)]
+            fillStyle: tsumikiColor[Math.floor(Math.random() * 10)],
+            strokeStyle: 'rgba(0,0,0,0)'
           }
         });
       case 1:
@@ -206,9 +208,11 @@ if (!Array.prototype.filter) {
           frictionAir: 0,
           friction: 0.0001,
           restitution: 0.8,
+          density: 0.05,
           render: {
             lineWidth: 1,
-            fillStyle: tsumikiColor[Math.floor(Math.random() * 10)]
+            fillStyle: tsumikiColor[Math.floor(Math.random() * 10)],
+            strokeStyle: 'rgba(0,0,0,0)'
           }
         });
       case 2:
@@ -216,9 +220,11 @@ if (!Array.prototype.filter) {
           frictionAir: 0,
           friction: 0.0001,
           restitution: 0.8,
+          density: 0.05,
           render: {
             lineWidth: 1,
-            fillStyle: tsumikiColor[Math.floor(Math.random() * 10)]
+            fillStyle: tsumikiColor[Math.floor(Math.random() * 10)],
+            strokeStyle: 'rgba(0,0,0,0)'
           }
         }, Common.random(20, 40));
     }

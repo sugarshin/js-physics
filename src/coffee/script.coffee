@@ -92,8 +92,8 @@ explosion = (engine) ->
 
   while i < bodies.length
     body = bodies[i]
-    if not body.isStatic# and body.position.y >= 500
-      forceMagnitude = 0.05 * body.mass
+    unless body.isStatic# and body.position.y >= 500
+      forceMagnitude = 0.025 * body.mass
       Body.applyForce body,
         x: 0
         y: 0
@@ -180,27 +180,33 @@ World.add engine.world, Composites.stack(50, 50, 30, 3, 0, 0, (x, y, column, row
         frictionAir: 0
         friction: 0.0001
         restitution: 0.8
+        density: 0.05
         render:
           lineWidth: 1
           fillStyle: tsumikiColor[Math.floor Math.random() * 10]
+          strokeStyle: 'rgba(0,0,0,0)'
       )
     when 1
       return Bodies.polygon(x, y, 3, Common.random(16, 32),
         frictionAir: 0
         friction: 0.0001
         restitution: 0.8
+        density: 0.05
         render:
           lineWidth: 1
           fillStyle: tsumikiColor[Math.floor Math.random() * 10]
+          strokeStyle: 'rgba(0,0,0,0)'
       )
     when 2
       return  Bodies.circle(x, y, Common.random(20, 30),
         frictionAir: 0
         friction: 0.0001
         restitution: 0.8
+        density: 0.05
         render:
           lineWidth: 1
           fillStyle: tsumikiColor[Math.floor Math.random() * 10]
+          strokeStyle: 'rgba(0,0,0,0)'
       , Common.random(20, 40)
       )
 )
