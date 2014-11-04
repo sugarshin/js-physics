@@ -3,45 +3,6 @@ module.exports = (grunt) ->
   pkg = grunt.file.readJSON 'package.json'
 
   grunt.initConfig
-    copy:
-      dest:
-        expand: true
-        cwd: 'dest/'
-        src: [
-          'js/lib/**'
-          '!.DS_Store'
-          '!*.js.map'
-        ]
-        dest: 'pubilc/'
-
-    stylus:
-      options:
-        compress: false
-        import: ['nib/*']
-
-      compile:
-        expand: true
-        cwd: 'src/stylus/'
-        src: [
-          '*.styl'
-          '!import/*.styl'
-        ]
-        dest: 'dest/css/'
-        ext: '.css'
-
-      build:
-        options:
-          compress: true
-
-        expand: true
-        cwd: 'src/stylus/'
-        src: [
-          '*.styl'
-          '!import/*.styl'
-        ]
-        dest: 'dest/css/'
-        ext: '.css'
-
     coffee:
       options:
         sourceMap: false
@@ -52,7 +13,7 @@ module.exports = (grunt) ->
         src: [
           '*.coffee'
         ]
-        dest: 'src/js/'
+        dest: 'dest/js/'
         ext: '.js'
 
     coffeelint:
@@ -62,25 +23,6 @@ module.exports = (grunt) ->
         src: [
           'src/coffee/*.coffee'
         ]
-
-    concat:
-      dest:
-        src: [
-          'src/js/polyfill.js'
-          'src/js/script.js'
-        ]
-        dest: 'dest/js/all.js'
-
-    cssmin:
-      min:
-        files: [{
-          expand: true
-          cwd: 'dest/css/'
-          src: [
-            '*.css'
-          ]
-          dest: 'pubilc/css/'
-        }]
 
     uglify:
       options:
@@ -100,6 +42,21 @@ module.exports = (grunt) ->
         # max_jshint_notifications: 8
         title: 'js-physics'
 
+    browserSync:
+      dev:
+        files:
+          src: [
+            'src/coffee/*.coffee'
+          ]
+        options:
+          ghostMode:
+            scroll: true
+            links: true
+          watchTask: true
+          server:
+             baseDir: './'
+             # index: 'src/root/index.html'
+
     watch:
       options:
         livereload: true
@@ -107,53 +64,23 @@ module.exports = (grunt) ->
       live:
         files: [
           'src/coffee/*.coffee'
-          'src/stylus/*.styl'
         ]
         tasks: [
           'newer:coffeelint:lint'
           'newer:coffee:compile'
-          'newer:concat:dest'
-          'newer:stylus:compile'
-          # 'copy:demo'
         ]
 
-    connect:
-      options:
-        port: 9001
-      live:
-        options:
-          base: './dest/'
-
-    bumpup:
-      files: [
-        'package.json'
-        'bower.json'
-      ]
-
-  for t of pkg.devDependencies
-    if t.substring(0, 6) is 'grunt-'
-      grunt.loadNpmTasks t
+  require('load-grunt-tasks')(grunt)
 
 
 
-  grunt.registerTask 'l', ->
-    grunt.task.run 'connect:live'
+  grunt.registerTask 'default', ->
+    grunt.task.run 'browserSync:dev'
     grunt.task.run 'watch:live'
     grunt.task.run 'notify_hooks'
-    return
 
-  grunt.registerTask 'u', (type) ->
-    # type >> major minor patch
-    grunt.task.run 'bumpup:' + type
-    return
 
   grunt.registerTask 'b', (type) ->
-    # type >> major minor patch
-    grunt.task.run 'bumpup:' + type
-    grunt.task.run 'copy'
     grunt.task.run 'coffeelint'
     grunt.task.run 'coffee'
     grunt.task.run 'uglify'
-    return
-
-  return
