@@ -1,0 +1,14 @@
+{
+  "name": "sense",
+  "homepage": "https://github.com/ehzhang/sense-js",
+  "_release": "a0554d073e",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a0554d073e0ed5cbb20a80848a406b6bfefe5e5c"
+  },
+  "_source": "git://github.com/ehzhang/sense-js.git",
+  "_target": "*",
+  "_originalSource": "sense",
+  "_direct": true
+}
