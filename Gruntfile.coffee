@@ -80,7 +80,7 @@ module.exports = (grunt) ->
     grunt.task.run 'notify_hooks'
 
 
-  grunt.registerTask 'b', (type) ->
-    grunt.task.run 'coffeelint'
-    grunt.task.run 'coffee'
-    grunt.task.run 'uglify'
+  # grunt.registerTask 'b', (type) ->
+  #   grunt.task.run 'coffeelint'
+  #   grunt.task.run 'coffee'
+  #   grunt.task.run 'uglify'

@@ -8,7 +8,7 @@ vely = 0
 gravity = 5000
 gamma = 0
 beta = 0
-bounceDamping = .4
+bounceDamping = .3
 oldTime = new Date
 width = window.innerWidth
 height = window.innerHeight
@@ -30,7 +30,7 @@ colorList = [
 
 draw = ->
   context.clearRect 0, 0, window.innerWidth, window.innerHeight
-  context.fillStyle = '#666'
+  context.fillStyle = '#999'
   context.beginPath()
   context.arc ballx, bally, radius, 0, Math.PI * 2
   context.fill()
