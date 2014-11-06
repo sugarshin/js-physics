@@ -1,5 +1,12 @@
-c = document.getElementById 'ballcanvas'
-context = c.getContext '2d'
+ballcanvas = document.getElementById 'ballcanvas'
+context = ballcanvas.getContext '2d'
+
+width = window.innerWidth
+height = window.innerHeight
+
+ballcanvas.width = width
+ballcanvas.height = height
+
 radius = 16
 ballx = 50
 bally = 50
@@ -10,10 +17,6 @@ gamma = 0
 beta = 0
 bounceDamping = .3
 oldTime = new Date
-width = window.innerWidth
-height = window.innerHeight
-c.width = width
-c.height = height
 
 colorList = [
   '#23AAA4'
@@ -28,12 +31,12 @@ colorList = [
   '#EDB51C'
 ]
 
-draw = ->
-  context.clearRect 0, 0, window.innerWidth, window.innerHeight
-  context.fillStyle = '#999'
-  context.beginPath()
-  context.arc ballx, bally, radius, 0, Math.PI * 2
-  context.fill()
+draw = (ctx) ->
+  ctx.clearRect 0, 0, window.innerWidth, window.innerHeight
+  ctx.fillStyle = '#999'
+  ctx.beginPath()
+  ctx.arc ballx, bally, radius, 0, Math.PI * 2
+  ctx.fill()
 
 frame = ->
   time = new Date
@@ -54,7 +57,7 @@ frame = ->
   if bally - radius < 0
     bally = radius
     vely *= -bounceDamping
-  draw()
+  draw context
   oldTime = time
 
 sense = sense.init({})

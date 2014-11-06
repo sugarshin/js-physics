@@ -1,8 +1,16 @@
-var ballx, bally, beta, bounceDamping, c, colorList, context, draw, frame, gamma, gravity, height, oldTime, radius, sense, velx, vely, width;
+var ballcanvas, ballx, bally, beta, bounceDamping, colorList, context, draw, frame, gamma, gravity, height, oldTime, radius, sense, velx, vely, width;
 
-c = document.getElementById('ballcanvas');
+ballcanvas = document.getElementById('ballcanvas');
 
-context = c.getContext('2d');
+context = ballcanvas.getContext('2d');
+
+width = window.innerWidth;
+
+height = window.innerHeight;
+
+ballcanvas.width = width;
+
+ballcanvas.height = height;
 
 radius = 16;
 
@@ -24,22 +32,14 @@ bounceDamping = .3;
 
 oldTime = new Date;
 
-width = window.innerWidth;
-
-height = window.innerHeight;
-
-c.width = width;
-
-c.height = height;
-
 colorList = ['#23AAA4', '#5AB5B0', '#78BEB2', '#686F89', '#DC5D54', '#DD6664', '#D94142', '#E78E21', '#E9A21F', '#EDB51C'];
 
-draw = function() {
-  context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-  context.fillStyle = '#999';
-  context.beginPath();
-  context.arc(ballx, bally, radius, 0, Math.PI * 2);
-  return context.fill();
+draw = function(ctx) {
+  ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  ctx.fillStyle = '#999';
+  ctx.beginPath();
+  ctx.arc(ballx, bally, radius, 0, Math.PI * 2);
+  return ctx.fill();
 };
 
 frame = function() {
@@ -66,7 +66,7 @@ frame = function() {
     bally = radius;
     vely *= -bounceDamping;
   }
-  draw();
+  draw(context);
   return oldTime = time;
 };
 

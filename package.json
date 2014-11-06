@@ -2,7 +2,7 @@
   "name": "js-physics",
   "version": "0.0.1",
   "description": "JavaScript Physics",
-  "repository": "",
+  "repository": "git@github.com:sugarshin/js-physics.js.git",
   "author": "sato",
   "license": "MIT",
   "devDependencies": {
