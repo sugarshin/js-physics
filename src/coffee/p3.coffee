@@ -1,4 +1,3 @@
-# Matter aliases
 Engine = Matter.Engine
 Gui = Matter.Gui
 World = Matter.World

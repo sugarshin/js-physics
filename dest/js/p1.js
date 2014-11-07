@@ -161,20 +161,20 @@
     }
   }));
 
-  offset = 5;
+  offset = 25;
 
   sceneWidth = window.innerWidth;
 
   sceneHeight = window.innerHeight;
 
   World.add(engine.world, [
-    Bodies.rectangle(sceneWidth / 2, -offset, sceneWidth + 2 * offset, 8, {
+    Bodies.rectangle(sceneWidth * 0.5, -offset, sceneWidth + 0.5, 50.5, {
       isStatic: true
-    }), Bodies.rectangle(sceneWidth / 2, sceneHeight + offset, sceneWidth + 2 * offset, 8, {
+    }), Bodies.rectangle(sceneWidth * 0.5, sceneHeight + offset, sceneWidth + 0.5, 50.5, {
       isStatic: true
-    }), Bodies.rectangle(sceneWidth + offset, sceneHeight / 2, 8, sceneHeight + 2 * offset, {
+    }), Bodies.rectangle(sceneWidth + offset, sceneHeight * 0.5, 50.5, sceneHeight + 0.5, {
       isStatic: true
-    }), Bodies.rectangle(-offset, sceneHeight / 2, 8, sceneHeight + 2 * offset, {
+    }), Bodies.rectangle(-offset, sceneHeight * 0.5, 50.5, sceneHeight + 0.5, {
       isStatic: true
     })
   ]);

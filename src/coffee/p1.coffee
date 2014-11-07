@@ -212,24 +212,23 @@ World.add engine.world, Composites.stack(50, 50, 30, 3, 0, 0, (x, y, column, row
 )
 
 # add some some walls to the world
-offset = 5
+offset = 25
 sceneWidth = window.innerWidth
 sceneHeight = window.innerHeight
 
 World.add engine.world, [
-  Bodies.rectangle(sceneWidth / 2, -offset, sceneWidth + 2 * offset, 8,
+  Bodies.rectangle(sceneWidth * 0.5, -offset, sceneWidth + 0.5, 50.5,
     isStatic: true
   )
-  Bodies.rectangle(sceneWidth / 2, sceneHeight + offset, sceneWidth + 2 * offset, 8,
+  Bodies.rectangle(sceneWidth * 0.5, sceneHeight + offset, sceneWidth + 0.5, 50.5,
     isStatic: true
   )
-  Bodies.rectangle(sceneWidth + offset, sceneHeight / 2, 8, sceneHeight + 2 * offset,
+  Bodies.rectangle(sceneWidth + offset, sceneHeight * 0.5, 50.5, sceneHeight + 0.5,
     isStatic: true
   )
-  Bodies.rectangle(-offset, sceneHeight / 2, 8, sceneHeight + 2 * offset,
+  Bodies.rectangle(-offset, sceneHeight * 0.5, 50.5, sceneHeight + 0.5,
     isStatic: true
   )
 ]
 
-# run the engine
 Engine.run engine
