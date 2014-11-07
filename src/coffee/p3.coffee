@@ -85,7 +85,7 @@ Demo.mixed = ->
     '#ffc30f'
   ]
 
-  stack = Composites.stack(20, 20, 10, 5, 0, 0, (x, y, column, row) ->
+  stack = Composites.stack(20, 20, 8, 2, 0, 0, (x, y, column, row) ->
     switch Math.round(Common.random(0, 1))
       when 0
         if Math.random() < 0.8
