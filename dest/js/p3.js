@@ -61,8 +61,8 @@
     _world = _engine.world;
     Demo.reset();
     World.add(_world, MouseConstraint.create(_engine));
-    rectangleSize = Common.random(24, 48);
-    tsumikiColor = ['#23c2bd', '#64CCC7', '#80D1C5', '#919BC2', '#ff4c4f', '#ff695e', '#f76d6d', '#ff9c19', '#ffb617', '#ffc30f'];
+    rectangleSize = Common.random(32, 48);
+    tsumikiColor = ['#23AAA4', '#5AB5B0', '#78BEB2', '#686F89', '#DC5D54', '#DD6664', '#D94142', '#E78E21', '#E9A21F', '#EDB51C'];
     stack = Composites.stack(20, 20, 8, 2, 0, 0, function(x, y, column, row) {
       switch (Math.round(Common.random(0, 1))) {
         case 0:
@@ -79,7 +79,7 @@
               }
             });
           } else {
-            return Bodies.polygon(x, y, 3, Common.random(16, 32), {
+            return Bodies.polygon(x, y, 3, Common.random(24, 32), {
               frictionAir: 0,
               friction: 0.0001,
               restitution: 0.8,
@@ -93,7 +93,7 @@
           }
           break;
         case 1:
-          return Bodies.circle(x, y, Common.random(20, 30), {
+          return Bodies.circle(x, y, Common.random(26, 30), {
             frictionAir: 0,
             friction: 0.0001,
             restitution: 0.8,
