@@ -64,12 +64,26 @@ Demo.mixed = ->
   #     lineWidth: 1
   # )
 
-  World.add _world, MouseConstraint.create _engine#,
+  mouse = _engine.input.mouse
+
+  World.add _world, MouseConstraint.create _engine,
     # type: 'mouseConstraint'
     # mouse: mouse
     # dragBody: null
     # dragPoint: null
-    # constraint: cconstraint
+    constraint: Constraint.create(
+      label: 'Mouse Constraint'
+      pointA: mouse.position
+      pointB:
+        x: 0
+        y: 0
+      length: 0.01
+      stiffness: 0.1
+      angularStiffness: 1
+      render:
+        strokeStyle: 'transparent'
+        lineWidth: 1
+    )
 
   rectangleSize = Common.random(32, 48)
   tsumikiColor = [

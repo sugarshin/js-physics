@@ -57,10 +57,27 @@
   window.addEventListener('load', Demo.init);
 
   Demo.mixed = function() {
-    var rectangleSize, stack, tsumikiColor, _world;
+    var mouse, rectangleSize, stack, tsumikiColor, _world;
     _world = _engine.world;
     Demo.reset();
-    World.add(_world, MouseConstraint.create(_engine));
+    mouse = _engine.input.mouse;
+    World.add(_world, MouseConstraint.create(_engine, {
+      constraint: Constraint.create({
+        label: 'Mouse Constraint',
+        pointA: mouse.position,
+        pointB: {
+          x: 0,
+          y: 0
+        },
+        length: 0.01,
+        stiffness: 0.1,
+        angularStiffness: 1,
+        render: {
+          strokeStyle: 'transparent',
+          lineWidth: 1
+        }
+      })
+    }));
     rectangleSize = Common.random(32, 48);
     tsumikiColor = ['#23AAA4', '#5AB5B0', '#78BEB2', '#686F89', '#DC5D54', '#DD6664', '#D94142', '#E78E21', '#E9A21F', '#EDB51C'];
     stack = Composites.stack(20, 20, 8, 2, 0, 0, function(x, y, column, row) {
